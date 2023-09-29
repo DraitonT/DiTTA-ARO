@@ -59,3 +59,36 @@ DIRECTIONAL_DEFORMATION.CoordinateSystem = COORDINATE_SYSTEM
 #Scenario 9: Solve and review Results
 STAT_STRUC_SOLUTION.Activate()
 STAT_STRUC.Solve(True)
+# ... (your existing code up to this point)
+
+# Export results to a text file
+EXPORT_PATH = r'M:\dev\Ansys\Digital Twin\dataResults.txt'  # Replace this with your desired export path
+
+# Export Total Deformation results
+TOTAL_DEF_MIN = TOTAL_DEFORMATION.Minimum.Value
+TOTAL_DEF_MAX = TOTAL_DEFORMATION.Maximum.Value
+
+# Export Directional Deformation results
+DIRECTIONAL_DEF_MIN = DIRECTIONAL_DEFORMATION.Minimum.Value
+DIRECTIONAL_DEF_MAX =.Maximum.Value
+
+FORCE_REACTION_PROBE_Y = FORCE_REACTION_PROBE.YAxis.Value
+MOMENT_REACTION_PROBE_X = MOMENT_REACTION_PROBE.XAxis.Value
+MOMENT_REACTION_PROBE_TOTAL = MOMENT_REACTION_PROBE.Total.Value
+
+# Write results to a text file
+with open(EXPORT_PATH, 'w') as file:
+
+    file.write(f'Directional Deformation (Min): {DIRECTIONAL_DEF_MIN}\n')
+    file.write(f'Directional Deformation (Max): {DIRECTIONAL_DEF_MAX}\n')
+
+
+# End of script
+# TOTAL_DEFORMATION_RESULT.ExportToTextFile(FOLDER_PATH+'\\Txt1.txt')
+
+#DIRECTIONAL_DEFORMATION.ExportToTextFile('M:\dev\Ansys\Digital Twin\data\dataResults.txt')
+STAT_STRUC = DataModel.Project.Model.Analyses[0]
+ANALYSIS_SETTINGS = STAT_STRUC.AnalysisSettings
+STAT_STRUC_SOLUTION = STAT_STRUC.Solution
+
+#DataModel.Project.Model.Analyses[0].Solution.AddTotalDeformation.ExportToTextFile('M:\dev\Ansys\Digital Twin\data\dataResults.txt')

@@ -1,16 +1,18 @@
-//DesignModeler JScript, version: Ansys DesignModeler 2023 R2 (May 30 2023, 14:02:08; 23,2023,149,1) SV4
-//Created via: "Write Script: Sketch(es) of Active Plane"
-// Written to: M:\dev\Ansys\Digital Twin\Automation\DesignModeler\beamModel3.js
-//         On: 10/12/23, 10:24:24
-//Using:
-//  agb ... pointer to batch interface
+// -------------Java Script Script Information-------------
+// Author Names: Michael Quach
+// Team: DiTTA (ARO)
+// Date: 10/12/23
+// Tool Version: N/A
+// Purpose of Script: Automatically creates and dimensions damaged beam within Ansys DesignModeler (in meters)
+// other .js files required: None
+// other files required (not .js): None
+////////////////////////////// EDITABLE /////////////////////////////
 
+////////////////////////////// EDITABLE /////////////////////////////
 
-//Note:
-// You may be able to re-use below JScript function via cut-and-paste;
-// however, you may have to re-name the function identifier.
-//
+//////////////////////////// NON-EDITABLE ///////////////////////////
 
+// 0.0 Function to create the sketches on desired planes
 function planeSketchesOnly (p)
 {
 
@@ -145,6 +147,7 @@ var ps1 = planeSketchesOnly (new Object());
 //Finish
 agb.Regen(); //To insure model validity
 
+// 1.0 Extrudes the sketches out to create 3D model and damaged cuts
 var Extrude1 = agb.Extrude(agc.Add, ps1.Sk1, agc.DirNormal,
   agc.ExtentFixed, 0.00254, agc.ExtentFixed, 0.00254, agc.No, 0.0, 0.0);
 
@@ -155,3 +158,5 @@ var Extrude1 = agb.Extrude(agc.Cut, ps1.Sk3, agc.DirNormal,
   ps1.Sk1.Name = "Face1";
   agb.Regen(); // To ensure model validity
 //End DM JScript
+
+//////////////////////////// NON-EDITABLE ///////////////////////////

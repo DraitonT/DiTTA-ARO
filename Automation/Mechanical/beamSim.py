@@ -13,7 +13,7 @@ for part in PARTS:
         if body.Name == "Part 1":
             PART1 = body
 
-STAT_STRUC = DataModel.Project.Model.Analyses[0]
+
 ANALYSIS_SETTINGS = STAT_STRUC.AnalysisSettings
 STAT_STRUC_SOLUTION = STAT_STRUC.Solution
 
@@ -79,16 +79,16 @@ MOMENT_REACTION_PROBE_TOTAL = MOMENT_REACTION_PROBE.Total.Value
 # Write results to a text file
 with open(EXPORT_PATH, 'w') as file:
 
-    file.write(f'Directional Deformation (Min): {DIRECTIONAL_DEF_MIN}\n')
-    file.write(f'Directional Deformation (Max): {DIRECTIONAL_DEF_MAX}\n')
+    file.write(f'Directional Deformation (Min): {TOTAL_DEFORMATION}\n')
+    # file.write(f'Directional Deformation (Max): {DIRECTIONAL_DEF_MAX}\n')
 
 
 # End of script
 # TOTAL_DEFORMATION_RESULT.ExportToTextFile(FOLDER_PATH+'\\Txt1.txt')
 
 #DIRECTIONAL_DEFORMATION.ExportToTextFile('M:\dev\Ansys\Digital Twin\data\dataResults.txt')
-STAT_STRUC = DataModel.Project.Model.Analyses[0]
-ANALYSIS_SETTINGS = STAT_STRUC.AnalysisSettings
-STAT_STRUC_SOLUTION = STAT_STRUC.Solution
+# STAT_STRUC = DataModel.Project.Model.Analyses[0]
+# ANALYSIS_SETTINGS = STAT_STRUC.AnalysisSettings
+# STAT_STRUC_SOLUTION = STAT_STRUC.Solution
 
 #DataModel.Project.Model.Analyses[0].Solution.AddTotalDeformation.ExportToTextFile('M:\dev\Ansys\Digital Twin\data\dataResults.txt')

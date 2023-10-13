@@ -146,39 +146,4 @@ var Extrude1 = agb.Extrude(agc.Cut, ps1.Sk2, agc.DirNormal,
   ps1.Sk1.Name = "Face1";
   agb.Regen(); // To ensure model validity
 
-  // ... (your existing script up to this point)
-
-// Create a Named Selection for a face
-// var namedSelection = agb.NamedSelections.Create("MyNamedSelection");
-
-// // Get the face you want to include in the Named Selection (replace "Face1" with the actual face name)
-// var faceToSelect = agb.GetFaceByName("Face1");
-
-// // Add the face to the Named Selection
-// namedSelection.Add(faceToSelect);
-
-// // To finalize the Named Selection creation
-// namedSelection.Commit();
-// ps1.Name = "Face1";
-
-// // Regenerate the model to update the Named Selection
-// agb.Regen();
-
-// ... (your existing script up to this point)
-
-// // Create a Named Selection for a face
-// var namedSelection = agb.NamedSelections.Create("MyNamedSelection");
-
-// // Get the face you want to include in the Named Selection (replace "Face1" with the actual face name)
-// var faceToSelect = agb.GetFaceByName("Face1");
-
-// // Add the face to the Named Selection
-// namedSelection.Add(faceToSelect);
-
-// // To finalize the Named Selection creation
-// namedSelection.Commit();
-
-// // Regenerate the model to update the Named Selection
-// agb.Regen();
-
 // End DM JScript

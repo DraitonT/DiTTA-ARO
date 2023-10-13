@@ -13,7 +13,7 @@ import time
 
 ## 0.0 Select the folder you want to save the files [folder_directory] and the name of the run [output_directory]
 
-locationOfCut = "402"
+locationOfCut = "500"
 folder_directory = r"M:\dev\Ansys\Digital Twin"
 output_directory = "data"
 
@@ -27,7 +27,7 @@ STAT_STRUC = DataModel.Project.Model.Analyses[0]
 STAT_STRUC_SOLUTION = STAT_STRUC.Solution
 
 STAT_STRUC_SOLUTION.Activate()
-
+file
 totalDeformation = STAT_STRUC_SOLUTION.AddTotalDeformation()
 equivalentElasticStrain = STAT_STRUC_SOLUTION.AddEquivalentElasticStrain()
 maximumPrincipalElasticStrain = STAT_STRUC_SOLUTION.AddMaximumPrincipalElasticStrain()

@@ -20,13 +20,12 @@ The [Documentation](Documentation/) directory contains project-related documenta
 
 ## Simulation
 
-The [Simulation](Simulation/) directory houses Ansys Workbench project files (.wbpj) used for UAV digital twin simulations. Each subdirectory within this folder corresponds to a specific simulation or analysis task.
-- [Beam Simulation](Simulation/Beam.wbpj): Ansys Workbench project files for damaged beam runs.
-- [Test](Simulation/test.wbpj): A playground hosting Ansys Workbench project files to test out new features with the Automation scripts.
+The [Simulation](https://github.com/DraitonT/DiTTA-ARO/tree/master/Simulation) directory houses Ansys Workbench project files (.wbpj) used for UAV digital twin simulations. Each subdirectory within this folder corresponds to a specific simulation or analysis task.
+- [Beam.wbpj](https://github.com/DraitonT/DiTTA-ARO/blob/master/Simulation/Beam.wbpj): Ansys Workbench project files for damaged beam runs.
 
 ## Automation
 
-The [Automation](Automation/) directory contains automation scripts and tools used to streamline and automate various aspects of the simulation and post-processing workflow. These scripts are written in [Python](https://www.python.org/) for Ansys DesignModeler and [Javascript](https://www.w3schools.com/Js/) and help with tasks such as modeling, data extraction, result visualization, and batch processing.
+The [Automation](https://github.com/DraitonT/DiTTA-ARO/tree/master/Automation) directory contains automation scripts and tools used to streamline and automate various aspects of the simulation and post-processing workflow. These scripts are written in [Python](https://www.python.org/) for Ansys DesignModeler and [Javascript](https://www.w3schools.com/Js/) and help with tasks such as modeling, data extraction, result visualization, and batch processing.
 
 ### Ansys DesignModeler
 - [ansysDesignModelerExample.js](https://github.com/DraitonT/DiTTA-ARO/blob/master/Automation/DesignModeler/ansysDesignModelerExample.js): Example of utilizing the Ansys DesignModeler API, provided by Ansys to provide a holistic overview of using their functions. 
@@ -50,4 +49,7 @@ To get started with DiTTA, follow these steps:
 
    ```bash
    git clone https://github.com/DraitonT/DiTTA-ARO.git
-2. Runn the 
+2. Run the [Beam.wbpj](https://github.com/DraitonT/DiTTA-ARO/blob/master/Simulation/Beam.wbpj)
+3. Alter the location of the crack with Ansys DesignModeler
+4. Go to Ansys Mechanical and run [solutionsAndExport.py](https://github.com/DraitonT/DiTTA-ARO/blob/master/Automation/Mechanical/solutionsAndExport.py) to run the analysis and export the results from the simulation to text files
+5. Run [resultsCombiner.m](https://github.com/DraitonT/DiTTA-ARO/blob/master/Automation/Parsing/resultsCombiner.m) to combine all the results into 1 CSV using MATLAB.

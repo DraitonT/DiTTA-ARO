@@ -43,10 +43,9 @@ The [Automation](https://github.com/DraitonT/DiTTA-ARO/tree/master/Automation) d
 
 ## Getting Started
 
-To get started with DiTTA, follow these steps:
+To get started with DiTTA, follow these steps or follow the Powerpoint [PPT-Ansys_Automation.pptx](https://github.com/DraitonT/DiTTA-ARO/blob/master/Documentation/PPT-Ansys_Automation.pptx)
 
 1. Clone this repository to your local machine:
-
    ```bash
    git clone https://github.com/DraitonT/DiTTA-ARO.git
 2. Run the [Beam.wbpj](https://github.com/DraitonT/DiTTA-ARO/blob/master/Simulation/Beam.wbpj)

@@ -15,8 +15,8 @@ This repository contains the following subdirectories:
 ## Documentation
 
 The [Documentation](Documentation/) directory contains project-related documentation, design details, and reports. Here, you can find:
-
-- [SciTech 2024 Paper](https://livecsupomona-my.sharepoint.com/personal/zsotoudeh_cpp_edu/_layouts/15/onedrive.aspx?FolderCTID=0x01200025FDA34211638947843A3910CE2D5718&id=%2Fpersonal%2Fzsotoudeh%5Fcpp%5Fedu%2FDocuments%2FARO%2DCS%2DDitta%20Project%20%28Digital%20Twin%29%2F2023%2D2024%2Fto%2Dstart%2FScitech2024%2DDiTTA%2Epdf&parent=%2Fpersonal%2Fzsotoudeh%5Fcpp%5Fedu%2FDocuments%2FARO%2DCS%2DDitta%20Project%20%28Digital%20Twin%29%2F2023%2D2024%2Fto%2Dstart)
+- [Ansys Automation Guide Powerpoint](https://github.com/DraitonT/DiTTA-ARO/blob/master/Documentation/PPT-Ansys_Automation.pptx)
+- [SciTech 2024 Paper](https://github.com/DraitonT/DiTTA-ARO/blob/master/Documentation/Scitech2024-DiTTA.pdf)
 
 ## Simulation
 

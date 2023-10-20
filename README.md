@@ -30,7 +30,7 @@ The [Automation](Automation/) directory contains automation scripts and tools us
 
 ### Ansys DesignModeler
 - [DesignModeler Example](Automation/DesignModeler/ansysDesignModelerExample.js): Example of utilizing the Ansys DesignModeler API, provided by Ansys to provide a holistic overview of using their functions. 
-- [Beam Modeler](Automation/DesignModeler/beamModel.js): Modeling a beam with a cut.
+- [beam](Automation/DesignModeler/beamModel.js): Modeling a beam with a cut.
 
 ### Ansys Mechanical
 - [Mechanical Example](Automation/Mechanical/ansysMechanicalExample.py): Example of utilizing the Ansys Mechanical's API to automate analysis and simulations, provided by Ansys to provide a holistic overview of using their functions.

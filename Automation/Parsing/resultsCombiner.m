@@ -10,7 +10,7 @@ tic
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 %% 0.0 Location of Cut and folder of interest
-    locationOfCut = '404';
+    locationOfCut = '420';
     folderOfInterest = '\..\..\data\';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,7 +74,14 @@ tic
         end
 
   %% 2.0 Saves the combined results into a CSV file
+  columnNames = {'Node Numbers', 'X Locations (inches)', 'Y Locations (inches)', 'Z Locations (inches)', ...
+           'Equivalent Elastic Strains (in/in)', 'Equivalent Stress (psi)', ...
+           'Max Principal Elastic Strain (in/in)', 'Max Principal Stress (psi)', ...
+           'Middle Principal Elastic Strain (in/in)', 'Middle Principal Stress (psi)', ...
+           'Min Principal Elastic Strain (in/in)', 'Min Principal Stress (psi)', ...
+           'Total Deformation (in)'};
         dataTable = table(nodeNumbers, xLocations, yLocations, zLocations, elasticStrains, equivalentStress, maxPrincipalElasticStrain, maxPrincipalStress, middlePrincipalElasticStrain, middlePrincipalStress, minPrincipalElasticStrain, minPrincipalStress, totalDeformation);
+        dataTable.Properties.VariableNames = columnNames;
         disp(dataTable);
         locationOfCSV = append(folderPath, '\', locationOfCut, 'compiled.csv');
         writetable(dataTable, locationOfCSV);

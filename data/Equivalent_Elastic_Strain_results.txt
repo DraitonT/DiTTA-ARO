@@ -1,0 +1,2 @@
+Type	Value	Note	Unit	Location X	Location Y	Location Z	Node ID	Association	Timestamp	Color	Show Always	
+Result	538.36	NOT OK	psi	6.292365	6.000086	-0.052891	200	Model>Static Structural>Solution>Equivalent Stress	11/17/23 09:25 AM	RGB(240, 0, 0)	False	

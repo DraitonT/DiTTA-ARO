@@ -1,0 +1,2 @@
+NodeNumbers,XLocations_inches_,YLocations_inches_,ZLocations_inches_,EquivalentElasticStrains_in_in_,EquivalentStress_psi_,MaxPrincipalElasticStrain_in_in_,MaxPrincipalStress_psi_,MiddlePrincipalElasticStrain_in_in_,MiddlePrincipalStress_psi_,MinPrincipalElasticStrain_in_in_,MinPrincipalStress_psi_,TotalDeformation_in_
+319,1.004,-7.0365e-31,0.1,0.00014183,1417.3,0.00013812,1338.1,-3.246e-05,56.45,-6.4474e-05,-184.09,0.00090742

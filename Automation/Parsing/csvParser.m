@@ -11,23 +11,26 @@ tic
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 %% 0.0 Location of Cut and folder of interest
-    fileName = '\502compiled.csv';
-    folderOfInterest = '\..\..\data\502'; 
-    
-    num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
+%     fileName = '502compiled.csv';
+folderOfInterest = '\..\..\data\'; 
+
+num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
+user_x = 1;
+user_y = 1;
+user_z = 1;
+%% Initialize an empty table to store all interpolated values
+all_interpolated_data = table();
 
 %% 1.0 IDW Interpolation
-    % Ask the user for input coordinates
-    user_x = input('Enter X coordinate: ');
-    user_y = input('Enter Y coordinate: ');
-    user_z = input('Enter Z coordinate: ');
-    
-    % Load the data from CSV
-    filePath = append(pwd, folderOfInterest, fileName);
-    append(pwd,folderOfInterest, fileName)
-    data = readtable(filePath); 
-    
+% Load the data from CSV
+filePath = append(pwd, folderOfInterest);
+folder = dir(filePath);
+
+% Loops through each of the folders
+for k = 3:length(folder)
+    csvFileOfInterest = append(filePath,folder(k).name, '\',folder(k).name, 'compiled.csv');
+    data = readtable(csvFileOfInterest); 
     % Calculate the Euclidean distance from each node to the user specified point
     distances = sqrt((data.XLocations_inches_ - user_x).^2 + ...
                      (data.YLocations_inches_ - user_y).^2 + ...
@@ -46,40 +49,22 @@ tic
     interpolated_values = zeros(1, width(data)-3);  % Adjust the size based on the number of columns to interpolate
     
     % Interpolate values
-    for i = 1:num_nearest_nodes
-        interpolated_values = interpolated_values + normalized_weights(i) * table2array(data(nearestIndices(i), 4:end));
-    end
-
-%% 2.0 Results from Interpolation
-    % Display nodes used for interpolation
-    disp('Nodes used for interpolation and their coordinates:');
-    for i = 1:num_nearest_nodes
-        disp(['Node ', num2str(nearestIndices(i)), ': (', ...
-              num2str(data.XLocations_inches_(nearestIndices(i))), ', ', ...
-              num2str(data.YLocations_inches_(nearestIndices(i))), ', ', ...
-              num2str(data.ZLocations_inches_(nearestIndices(i))), ')']);
+    for j = 1:num_nearest_nodes
+        interpolated_values = interpolated_values + normalized_weights(j) * table2array(data(nearestIndices(j), 4:end));
     end
     
     % Create a new table for the interpolated point
     interpolated_row = array2table([user_x, user_y, user_z, interpolated_values], ...
                                    'VariableNames', data.Properties.VariableNames);
+    
+    % Append the interpolated_row to the all_interpolated_data table
+    all_interpolated_data = [all_interpolated_data; interpolated_row];
+end
 
-    disp(interpolated_row)
+%% 2.0 Write the results to an Excel file
+outputFileName = 'InterpolatedResults.xlsx';  % Define the output file name
+writetable(all_interpolated_data, outputFileName);  % Write the table to an Excel file
 
-%     % Display nodes used for interpolation, their coordinates, and associated values
-%     disp('Nodes used for interpolation, their coordinates, and associated values:');
-%     for i = 1:num_nearest_nodes
-%         nodeIndex = nearestIndices(i);
-%         nodeData = data(nodeIndex, :);
-%         nodeNum = nodeData.NodeNumbers;
-%         nodeX = nodeData.XLocations_inches_;
-%         nodeY = nodeData.YLocations_inches_;
-%         nodeZ = nodeData.ZLocations_inches_;
-%         
-%         % Display the node number and its coordinates
-%         fprintf('Node %d: (%.4f, %.4f, %.4f)\n', nodeNum, nodeX, nodeY, nodeZ);
-%         
-%         % Display the associated values for this node
-%         disp(table2array(nodeData(1, 4:end)));
-%     end
+disp(['All interpolated values have been written to ', outputFileName]);
+
 toc

@@ -1,6 +1,6 @@
 # DiTTA - Digital Twins for UAVs
 
-![UAV Image](/data/uavDrone.jpg)
+![UAV Image](uavDrone.jpg)
 
 ## Overview
 

@@ -15,12 +15,14 @@ tic
 %% 0.0 Location of all data files
 folderOfInterest = '\..\..\data\'; 
 num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
+csvName = 'InterpolatedResults.xlsx';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 
 TwinAnalyticsToolKit.groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
+TwinAnalyticsToolKit.elasticStrainPlotter(csvName)
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 toc

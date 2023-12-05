@@ -37,10 +37,11 @@ plot(CutLocation, Strain5, 'm', 'DisplayName', 'Strain 5');
 plot(CutLocation, Strain6, 'y', 'DisplayName', 'Strain 6');
 plot(CutLocation, Strain7, 'k', 'DisplayName', 'Strain 7');
 
-xlabel('CutLocation');
-ylabel('Strain (in/in)');
-title('Strain vs. CutLocation');
-legend('Location', 'Best');
+xlabel('Cut Location (inches)', 'Interpreter', 'latex');
+ylabel('Strain (in/in)', 'Interpreter', 'latex');
+title('Strain vs. Cut Location', 'Interpreter', 'latex');
+legend('Location', 'Best', 'Interpreter', 'latex');
+
 grid on;
 hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%

@@ -13,7 +13,7 @@ import time
 
 ## 0.0 Select the folder you want to save the files [folder_directory] and the name of the run [output_directory]
 
-locationOfCut = "510"
+locationOfCut = "tmp"
 folder_directory = r"M:\dev\Ansys\Digital Twin"
 output_directory = "data"
 

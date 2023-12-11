@@ -81,7 +81,7 @@ classdef TwinAnalyticsToolKit
             disp(['All interpolated values have been written to ', outputFileName]);
         end
         %% 1.2 Parser for all strain gage locations (Equivalent Elastic Strain only) using IDW Interpolation
-        function groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
+            function groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
             % Initialize an empty array to store all interpolated values
             all_interpolated_data = [];
             % Initialize an empty array to store interpolation details
@@ -136,9 +136,17 @@ classdef TwinAnalyticsToolKit
                     nearestIndices = sortedIndices(1:num_nearest_nodes);
                     nearestDistances = sortedDistances(1:num_nearest_nodes);
         
-                    % Perform IDW interpolation for 'Equivalent Elastic Strains (in/in)'
-                    weights = 1 ./ nearestDistances;
-                    normalized_weights = weights / sum(weights);
+                    % Modified IDW interpolation for 'Equivalent Elastic Strains (in/in)'
+                    if any(nearestDistances == 0)
+                        % Assign high weight to zero distances and zero to others
+                        weights = nearestDistances == 0;
+                        weights = weights; % Adjust this high value as needed
+                        normalized_weights = weights;
+                    else
+                        % Original weighting calculation if no distances are zero
+                        weights = 1 ./ nearestDistances;
+                        normalized_weights = weights / sum(weights);
+                    end
         
                     % Interpolate 'Equivalent Elastic Strains (in/in)'
                     equivalentElasticStrain = sum(normalized_weights .* data.('Equivalent Elastic Strains (in/in)')(nearestIndices));
@@ -181,6 +189,7 @@ classdef TwinAnalyticsToolKit
         
             disp(['All interpolation details have been written to ', detailOutputFileName]);
         end
+
     %% 1.2.1 Plotter
     function elasticStrainPlotter(csvName)
         data = readmatrix(csvName); % Read the CSV file into a matrix (assuming it has a header row).

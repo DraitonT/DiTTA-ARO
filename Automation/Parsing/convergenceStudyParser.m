@@ -24,9 +24,9 @@ folder = dir(folderPath);
     % Read the data using textscan
             filePath = append(folderPath,'\', folder(i).name);
             individualFilePath = dir(filePath);
-         for j = 1:length(individualFilePath)
+         for j = 3:length(individualFilePath)
             
-            fileID = fopen(individualFilePath, 'r');
+            fileID = fopen(append(filePath,'\',individualFilePath(j).name), 'r');
             dataArray = textscan(fileID, formatSpec, 'HeaderLines', 1);
             % Close the file
             fclose(fileID);

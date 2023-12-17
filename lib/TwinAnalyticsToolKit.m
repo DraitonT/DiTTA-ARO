@@ -1,6 +1,6 @@
 classdef TwinAnalyticsToolKit
     methods(Static)
-        %% 1.0 Parsers for Ansys Mechanical Outputs 
+        %% 1.0 Parsers for Ansys Mechanical Outputs (Cut Location Runs)
 
         %% 1.1 Parser for all strain gage locations (All data)
         function groupPerCutAllData(folderOfInterest, num_nearest_nodes)
@@ -223,6 +223,193 @@ classdef TwinAnalyticsToolKit
         
         grid on;
         hold off;
+    end
+
+    %% 2.0 Convergence Study Related Functions
+        %% 2.1 Ansys Mechanical text file parsers and csv combine
+        function convergenceStudyParserandIndividualCSVCombiner(folderPath)
+            files = dir(fullfile(folderPath));  % Update the pattern to match your filenames
+            formatSpec = '%d%f%f%f%f'; % Assumes the data format: int float float float float
+            folder = dir(folderPath);
+            
+                for i = 3:length(files)
+                % Read the data using textscan
+                        filePath = append(folderPath,'\', folder(i).name);
+                        individualFilePath = dir(filePath);
+             
+                     for j = 3:length(individualFilePath)
+                        if strcmp(append(folder(i).name, 'compiled.csv'), individualFilePath(j).name)
+                          delete(append(filePath,'\',folder(i).name, 'compiled.csv'))
+                        else
+                        fileID = fopen(append(filePath,'\',individualFilePath(j).name), 'r');
+                        dataArray = textscan(fileID, formatSpec, 'HeaderLines', 1);
+                        % Close the file
+                        fclose(fileID);
+                    
+                        % Extract the parsed data
+                        nodeNumbers = dataArray{1,1};
+                        xLocations = dataArray{1,2};
+                        yLocations = dataArray{1,3};
+                        zLocations = dataArray{1,4};
+                    
+                        if strcmp(individualFilePath(j).name, 'Equivalent_Elastic_Strain_results.txt')
+                            elasticStrains = dataArray{1, 5};
+                        end
+                        
+                        if strcmp(individualFilePath(j).name, 'Equivalent_Stress_results.txt')
+                            equivalentStress = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Maximum_Principal_Elastic_Strain_results.txt')
+                            maxPrincipalElasticStrain = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Maximum_Principal_Stress_results.txt')
+                            maxPrincipalStress = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Middle_Principal_Elastic_Strain_results.txt')
+                            middlePrincipalElasticStrain = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Middle_Principal_Stress_results.txt')
+                            middlePrincipalStress = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Minimum_Principal_Elastic_Strain_results.txt')
+                            minPrincipalElasticStrain = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Minimum_Principal_Stress_results.txt')
+                            minPrincipalStress = dataArray{1, 5};
+                        end
+                    
+                        if strcmp(individualFilePath(j).name, 'Total_Deformation_results.txt')
+                            totalDeformation = dataArray{1, 5};
+                        end
+                        end
+                     end
+                   % Saves the combined results into a CSV file
+                    columnNames = {'Node Numbers', 'X Locations (inches)', 'Y Locations (inches)', 'Z Locations (inches)', ...
+                       'Equivalent Elastic Strains (in/in)', 'Equivalent Stress (psi)', ...
+                       'Max Principal Elastic Strain (in/in)', 'Max Principal Stress (psi)', ...
+                       'Middle Principal Elastic Strain (in/in)', 'Middle Principal Stress (psi)', ...
+                       'Min Principal Elastic Strain (in/in)', 'Min Principal Stress (psi)', ...
+                       'Total Deformation (in)'};
+                    dataTable = table(nodeNumbers, xLocations, yLocations, zLocations, elasticStrains, equivalentStress, maxPrincipalElasticStrain, maxPrincipalStress, middlePrincipalElasticStrain, middlePrincipalStress, minPrincipalElasticStrain, minPrincipalStress, totalDeformation);
+                    dataTable.Properties.VariableNames = columnNames;
+                    disp(dataTable);
+                    locationOfCSV = append(filePath, '\', folder(i).name, 'compiled.csv');
+                    writetable(dataTable, locationOfCSV);
+                end
         end
+        %% 2.2 Convergence Study CSV Combiner
+        function convergenceStudyCSVsCombiner(folderPath)
+            elementFolders = dir(fullfile(folderPath, 'elementsize*')); % Folders for different element sizes
+            
+            % Initialize variables to store combined data
+            combinedData = [];
+            
+            % Loop over each element size folder
+            for i = 1:length(elementFolders)
+                if elementFolders(i).isdir
+                    % Extract element size from the folder name (e.g., 'elementsize0p5')
+                    elementSizeStr = regexp(elementFolders(i).name, 'elementsize(\d+p\d+)', 'tokens');
+                    elementSizeStr = elementSizeStr{1}{1};
+                    elementSize = str2double(strrep(elementSizeStr, 'p', '.'));
+            
+                    % Construct path to the individual folder
+                    individualFolderPath = fullfile(folderPath, elementFolders(i).name);
+                    
+                    % Get all .csv files in this folder
+                    individualFiles = dir(fullfile(individualFolderPath, '*.csv'));
+            
+                    % Process each file within this folder
+                    for j = 1:length(individualFiles)
+                        % Construct path to individual file
+                        individualFilePath = fullfile(individualFolderPath, individualFiles(j).name);
+            
+                        % Read the data from each file
+                        dataTable = readtable(individualFilePath, 'VariableNamingRule','preserve');
+            
+                        % Add a column for element size
+                        dataTable.ElementSize = repmat(elementSize, height(dataTable), 1);
+            
+                        % Append the data table to the combined data
+                        combinedData = [combinedData; dataTable]; % Assumes all data tables have the same structure
+                    end
+                end
+            end
+            
+            % Define the output file path for the combined data
+            outputFilePath = fullfile(folderPath, 'combinedData.csv');
+            
+            % Write the combined data to a CSV file
+            writetable(combinedData, outputFilePath);
+        end
+        %% 2.3 2D Convergence Feature Plotter
+        function TwoDConvergencePlotter(filePath)
+            combinedData = readtable(filePath,'VariableNamingRule','preserve');
+            % Extract unique element sizes
+            elementSizes = unique(combinedData.ElementSize);
+            
+            % Initialize a figure for the plot
+            figure;
+            hold on;
+            
+            % Loop through each element size to plot
+            for i = 1:length(elementSizes)
+                % Extract data for the current element size
+                currentData = combinedData(combinedData.ElementSize == elementSizes(i), :);
+            
+                % Plot X-Coordinates vs. Deformation for the current element size
+                plot(currentData.('X Locations (inches)'), currentData.('Total Deformation (in)'), 'DisplayName', ['Element Size ' num2str(elementSizes(i))]);
+            end
+            
+            % Add labels, title, and legend
+            xlabel('X Coordinates (inches)');
+            ylabel('Total Deformation (in)');
+            title('X-Coordinates vs. Deformation for Different Element Sizes');
+            legend('show');
+            grid on;
+            
+            hold off;
+        end
+
+        %% 2.4 3D Convervgence Feature Plotter
+        function ThreeDConvergencePlotter(filePath)
+            combinedData = readtable(filePath,'VariableNamingRule','preserve');
+            % interestedFeature = 'Node Numbers';
+            interestedFeature = 'X Locations (inches)';
+            interestedComparsion = 'Total Deformation (in)';
+            
+            % Extract unique element sizes
+            elementSizes = unique(combinedData.ElementSize);
+            
+            % Initialize matrices for the contour plot
+            [X, Y] = meshgrid(combinedData.(interestedFeature), elementSizes);
+            Z = NaN(size(X));  % Initialize Z to NaNs
+            
+            % Fill Z matrix with deformation values
+            for i = 1:length(elementSizes)
+                % Extract data for the current element size
+                currentData = combinedData(combinedData.ElementSize == elementSizes(i), :);
+                for j = 1:length(currentData.(interestedFeature))
+                    xCoord = currentData.(interestedFeature)(j);
+                    def = currentData.(interestedComparsion)(j);
+                    Z(elementSizes(i) == Y(:,1), xCoord == X(1,:)) = def;
+                end
+            end
+            
+            % Create the contour plot
+            figure;
+            contour3(X, Y, Z, 150); % Adjust the number of levels as needed
+            xlabel(interestedFeature);
+            ylabel('Element Size');
+            zlabel(interestedComparsion);
+            title('Contour Plot of Deformation');
+            colorbar;
+            
+            end
     end
 end

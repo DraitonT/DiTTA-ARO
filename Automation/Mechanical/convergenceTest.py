@@ -22,7 +22,7 @@ output_directory = "data"
 
 start = 0   # Start of the interval
 end = 10    # End of the interval
-step = 2    # Step size
+step = 0.5    # Step size
 
 ############################## EDITABLE #############################
 

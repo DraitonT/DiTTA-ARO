@@ -14,8 +14,8 @@ import time
 ## 0.0 Select the folder you want to save the files [folder_directory] and the name of the run [output_directory]
 
 locationOfCut = "tmp"
-folder_directory = r"M:\dev\Ansys\Digital Twin\data"
-output_directory = "runs"
+folder_directory = r"M:\dev\Ansys\Digital Twin"
+output_directory = "data"
 
 ############################## EDITABLE #############################
 
@@ -78,7 +78,7 @@ for analysis_name, result_object in analysis_results.items():
     result_object.ExportToTextFile(absolute_path)
     
     print("Results for {} saved to {}".format(analysis_name, absolute_path))
-
+    result_object.Delete()
 elapsed_time = time.time() - start_time
 print("Elapsed time: {:.2f} seconds".format(elapsed_time))
 ############################ NON-EDITABLE ###########################

@@ -4,10 +4,9 @@ tic
 
 % -------------MATLAB Script Information-------------
 % Author Names: Michael Quach
-% Date: 11/17/23
+% Date: 12/16/23
 % Tool Version: R2023a
-% Purpose of Script: Plots values from interpolated data
-% runs of specific cut
+% Purpose of Script: Convergence Study Values combined into seperate CSVs
 % other .m files required: None
 % other files required (not .m): Folder with the individual results
 
@@ -90,7 +89,7 @@ folder = dir(folderPath);
         locationOfCSV = append(filePath, '\', folder(i).name, 'compiled.csv');
         writetable(dataTable, locationOfCSV);
     end
-
+toc
 
 
 

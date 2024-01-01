@@ -410,6 +410,105 @@ classdef TwinAnalyticsToolKit
             title('Contour Plot of Deformation');
             colorbar;
             
-            end
+        end
+        %
+        function TwoDConvergencePlotter2(filePath)
+        combinedData = readtable(filePath,'VariableNamingRule','preserve');
+        % User-specified location
+        user_x = 24;
+        user_y = 3;
+        user_z = 0;
+        
+        % Extract unique element sizes
+        elementSizes = unique(combinedData.ElementSize);
+        
+        % Initialize a figure for the plot
+        figure;
+        hold on;
+        
+        % Loop through each element size to plot
+        for i = 1:length(elementSizes)
+            % Extract data for the current element size
+            currentData = combinedData(combinedData.ElementSize == elementSizes(i), :);
+            
+            % Calculate the distance from each node to the user-specified location
+            distances = sqrt((currentData.('X Locations (inches)') - user_x).^2 + ...
+                             (currentData.('Y Locations (inches)') - user_y).^2 + ...
+                             (currentData.('Z Locations (inches)') - user_z).^2);
+            
+            % Find the index of the node closest to the user-specified location
+            [~, closestIndex] = min(distances);
+            
+            % Get the number of nodes and deformation for the closest node
+            numNodes = currentData.('Node Numbers')(closestIndex);
+            deformation = currentData.('Total Deformation (in)')(closestIndex);
+            
+            % Plot the number of nodes vs. deformation for the closest node
+            plot(numNodes, deformation, 'o', 'DisplayName', ['Element Size ' num2str(elementSizes(i))]);
+        end
+        
+        % Add labels, title, and legend
+        xlabel('Node Number');
+        ylabel('Total Deformation (in)');
+        title('Deformation at Point (24,3,0) Across Different Element Sizes');
+        legend('show');
+        grid on;
+        
+        hold off;
+        end
+
+        function plotDeformationVsElementSize(dataTable)
+        % Filters data for the right-most edge
+        rightEdgeData = dataTable(dataTable.('X Locations (inches)') == max(dataTable.('X Locations (inches)')), :);
+    
+        % Group by element size and calculate mean deformation
+        groupedData = varfun(@mean, rightEdgeData, 'InputVariables', 'Total Deformation (in)', ...
+                             'GroupingVariables', 'ElementSize');
+    
+        % Plotting
+        figure;
+        plot(groupedData.ElementSize, groupedData.('mean_Total Deformation (in)'), 'o-');
+        title('Average Deformation at Right-Most Edge vs Element Size', 'Interpreter', 'latex');
+        xlabel('Element Size', 'Interpreter', 'latex');
+        ylabel('Average Deformation (in)', 'Interpreter', 'latex');
+        grid on;
+    end
+    
+    function plotDeformationVsNodes(dataTable)
+        % Filters data for the right-most edge
+        rightEdgeData = dataTable(dataTable.('X Locations (inches)') == max(dataTable.('X Locations (inches)')), :);
+    
+        % Sort data by node numbers
+        sortedDataByNodes = sortrows(rightEdgeData, 'Node Numbers');
+    
+        % Plotting
+        figure;
+        plot(sortedDataByNodes.('Node Numbers'), sortedDataByNodes.('Total Deformation (in)'), 'o-');
+        title('Deformation vs Number of Nodes at Right-Most Edge', 'Interpreter', 'latex');
+        xlabel('Node Number', 'Interpreter', 'latex');
+        ylabel('Total Deformation (in)', 'Interpreter', 'latex');
+        grid on;
+    end
+    
+    function plotDeformationVsNodesFilter(dataTable)
+        % Filters data for the right-most edge
+        rightEdgeData = dataTable(dataTable.('X Locations (inches)') == max(dataTable.('X Locations (inches)')), :);
+    
+        % Further filtering to include only node numbers up to 10,000
+        filteredDataByNodes = rightEdgeData(rightEdgeData.('Node Numbers') <= 40000, :);
+    
+        % Sort data by node numbers
+        sortedDataByNodes = sortrows(filteredDataByNodes, ('Node Numbers'));
+    
+        % Plotting
+        figure;
+        plot(sortedDataByNodes.('Node Numbers'), sortedDataByNodes.('Total Deformation (in)'), 'o-');
+        title('Deformation vs Number of Nodes at Right-Most Edge (Up to Node 40,000)', 'Interpreter', 'latex');
+        xlabel('Node Number', 'Interpreter', 'latex');
+        ylabel('Total Deformation (in)', 'Interpreter', 'latex');
+        grid on;
+    end
+
+
     end
 end

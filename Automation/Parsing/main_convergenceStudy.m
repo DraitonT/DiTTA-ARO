@@ -12,14 +12,16 @@ tic
 % all csvs into 1 csv -> Plots the trade study
 %
 % other .m files required: TwinAnalyticsToolKit.m
-% other files required (not .m): Folder with the individual results
+% other files required (not .m): Folder with the individual results from
+% each convergence test run
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 %% 0.0 Filepath inputs
 folderOfInterest = '\..\..\data\convergenceStudy'; 
 folderPath = append(pwd, folderOfInterest);
 combinedCSVFilePath = append(pwd,'\..\..\data\convergenceStudy\combinedData.csv');
-
+dataTable = readtable(append(pwd,'\..\..\data\convergenceStudy\combinedData.csv'),'VariableNamingRule','preserve');
+contour = 0;
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
@@ -31,11 +33,16 @@ end
 
 TwinAnalyticsToolKit.convergenceStudyParserandIndividualCSVCombiner(folderPath)
 TwinAnalyticsToolKit.convergenceStudyCSVsCombiner(folderPath)
-TwinAnalyticsToolKit.TwoDConvergencePlotter(combinedCSVFilePath)
-TwinAnalyticsToolKit.ThreeDConvergencePlotter(combinedCSVFilePath)
+TwinAnalyticsToolKit.plotDeformationVsElementSize(dataTable);
+TwinAnalyticsToolKit.plotDeformationVsNodes(dataTable);
+TwinAnalyticsToolKit.plotDeformationVsNodesFilter(dataTable);
 
+if contour
+    TwinAnalyticsToolKit.ThreeDConvergencePlotter(combinedCSVFilePath)
+end
 
-
+toc
+%%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 
 
 

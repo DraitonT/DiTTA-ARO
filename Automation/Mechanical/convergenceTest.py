@@ -27,6 +27,29 @@ step = 0.5    # Step size
 ############################## EDITABLE #############################
 
 ############################ NON-EDITABLE ###########################
+full_path = os.path.join(folder_directory, output_directory, locationOfCut)
+
+def delete_directory(path):
+    # Check if the directory exists
+    if os.path.exists(path):
+        # Remove all files and subdirectories
+        for root, dirs, files in os.walk(path, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        # Remove the now-empty directory
+        os.rmdir(path)
+        
+## 1.1 Saving the simulation data to desired directory
+# Attempt to create the output directory, handle the case if it already exists
+try:
+    os.makedirs(full_path)
+except OSError:
+    # Directory already exists, delete path and its contents
+    delete_directory(full_path)
+    pass
+
 desired_element_sizes = [x * step for x in range(start, int(end / step) + 1)]  # Create a range of element sizes
 
 start_time = time.time()

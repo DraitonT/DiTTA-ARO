@@ -16,13 +16,13 @@ import time
 
 ## 0.0 Select the folder you want to save the files [folder_directory]
 ## and the name of the run [output_directory]
-locationOfCut = "convergenceStudy"
+locationOfCut = "200"
 folder_directory = r"M:\dev\Ansys\Digital Twin"
-output_directory = "data"
+output_directory = "data\convergenceStudy"
 
 start = 0   # Start of the interval
-end = 10    # End of the interval
-step = 0.5    # Step size
+end = 20    # End of the interval
+step = 0.1    # Step size
 
 ############################## EDITABLE #############################
 

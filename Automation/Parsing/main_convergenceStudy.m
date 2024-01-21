@@ -16,27 +16,37 @@ tic
 % each convergence test run
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% 0.0 Filepath inputs
-folderOfInterest = '\..\..\data\convergenceStudy'; 
+cutLocation = '800';
+folderOfInterest = append('\..\..\data\convergenceStudy\',cutLocation); 
 folderPath = append(pwd, folderOfInterest);
-combinedCSVFilePath = append(pwd,'\..\..\data\convergenceStudy\combinedData.csv');
-dataTable = readtable(append(pwd,'\..\..\data\convergenceStudy\combinedData.csv'),'VariableNamingRule','preserve');
-contour = 0;
+contour = false;
+generateData = true;
+
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 
 %% 1.0 TwinAnalyticsToolKit Functions
-if exist(combinedCSVFilePath, 'file')
-    delete(combinedCSVFilePath)
+
+% Condition to check if the user wants to create csv file containing all
+% the data from each of the runs
+if generateData
+    TwinAnalyticsToolKit.convergenceStudyParserandIndividualCSVCombiner(folderPath)
+    TwinAnalyticsToolKit.convergenceStudyCSVsCombiner(folderPath)
 end
 
-TwinAnalyticsToolKit.convergenceStudyParserandIndividualCSVCombiner(folderPath)
-TwinAnalyticsToolKit.convergenceStudyCSVsCombiner(folderPath)
+% Read the combined csv and instantiates a variable for its directory
+combinedCSVFilePath = append(pwd,'\..\..\data\convergenceStudy\combinedData.csv');
+dataTable = readtable(append(pwd,'\..\..\data\convergenceStudy\',cutLocation, '\combinedData.csv'),'VariableNamingRule','preserve');
+
+% Plots for the convergence study 
 TwinAnalyticsToolKit.plotDeformationVsElementSize(dataTable);
 TwinAnalyticsToolKit.plotDeformationVsNodes(dataTable);
 TwinAnalyticsToolKit.plotDeformationVsNodesFilter(dataTable);
 
+% Condition to check if 3D contour plot is wanted
 if contour
     TwinAnalyticsToolKit.ThreeDConvergencePlotter(combinedCSVFilePath)
 end

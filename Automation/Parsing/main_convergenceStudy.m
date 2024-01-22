@@ -18,7 +18,7 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Filepath inputs
-cutLocation = '800';
+cutLocation = '000';
 folderOfInterest = append('\..\..\data\convergenceStudy\',cutLocation); 
 folderPath = append(pwd, folderOfInterest);
 contour = false;

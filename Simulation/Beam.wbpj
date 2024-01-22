@@ -2,10 +2,10 @@
 <Storage>
   <Project Version="9.1">
     <base-designpoint-name valType="String">0</base-designpoint-name>
-    <timestamp-max valType="Int64">40836</timestamp-max>
+    <timestamp-max valType="Int64">55191</timestamp-max>
     <framework-build-version valType="String">23.2.142.0</framework-build-version>
     <external-version-string valType="String">2023 R2</external-version-string>
-    <last-saved-utc valType="String">01/07/2024 04:38:15</last-saved-utc>
+    <last-saved-utc valType="String">01/22/2024 00:02:58</last-saved-utc>
     <managed-categories valType="String">[report, misc, progress]</managed-categories>
     <logHistory valType="StringArray">
       <ArrayEntry Index="0">micha@LAPTOP-1BM6SM1T:C:\Users\micha\AppData\Local\Temp\WorkbenchLogs\CoreEvents34072.log</ArrayEntry>
@@ -24,6 +24,7 @@
       <ArrayEntry Index="13">micha@LAPTOP-1BM6SM1T:C:\Users\micha\AppData\Local\Temp\WorkbenchLogs\CoreEvents36372.log</ArrayEntry>
       <ArrayEntry Index="14">micha@LAPTOP-1BM6SM1T:C:\Users\micha\AppData\Local\Temp\WorkbenchLogs\CoreEvents24832.log</ArrayEntry>
       <ArrayEntry Index="15">micha@LAPTOP-1BM6SM1T:C:\Users\micha\AppData\Local\Temp\WorkbenchLogs\CoreEvents94636.log</ArrayEntry>
+      <ArrayEntry Index="16">micha@LAPTOP-1BM6SM1T:C:\Users\micha\AppData\Local\Temp\WorkbenchLogs\CoreEvents37536.log</ArrayEntry>
     </logHistory>
     <expression-scope-container valType="String">Parameters</expression-scope-container>
     <project-type valType="String">WB2</project-type>
@@ -233,7 +234,7 @@
       <Object Name="/FileContainer/FileReference:F2" Version="1.0">
         <class-type valType="String">FileReference</class-type>
         <object-name valType="String">F2</object-name>
-        <member-data valType="String">{"DisplayText": "act.dat", "FileType": $$4eb82f29-be77-4d85-94f3-519c67fd59fb, "DependentFiles": [], "ContainerAssociations": [], "SkipForDesignPointDuplication": False, "IsDeletable": True, "ExternalSource": None, "LastDownloadFromRepository": -1, "Location": r"$(ProjectName)_files\dp0\act.dat", "ReferenceCount": 37}</member-data>
+        <member-data valType="String">{"DisplayText": "act.dat", "FileType": $$4eb82f29-be77-4d85-94f3-519c67fd59fb, "DependentFiles": [], "ContainerAssociations": [], "SkipForDesignPointDuplication": False, "IsDeletable": True, "ExternalSource": None, "LastDownloadFromRepository": -1, "Location": r"$(ProjectName)_files\dp0\act.dat", "ReferenceCount": 39}</member-data>
       </Object>
       <Object Name="/FileContainer/FileReference:F3" Version="1.0">
         <class-type valType="String">FileReference</class-type>
@@ -325,7 +326,7 @@ M:\dev\Ansys\Digital Twin\Simulation\Beam_files\dp0\SYS\MECH\file.aapresults""",
       <storage-scheme-id valType="String">version-1-format</storage-scheme-id>
       <deleted-sources valType="String">[]</deleted-sources>
       <last-updated valType="Int64">0</last-updated>
-      <last-modified-by-usage valType="String">{"Extrinsic": 33786, "Input": 4321, "Output": 1497}</last-modified-by-usage>
+      <last-modified-by-usage valType="String">{"Extrinsic": 48143, "Input": 4321, "Output": 1497}</last-modified-by-usage>
       <outputs-generated-by-type valType="String">{}</outputs-generated-by-type>
       <contains-significant-data valType="Boolean">true</contains-significant-data>
       <Object Name="/Schematic/System:SYS" Version="1.0">
@@ -460,7 +461,7 @@ M:\dev\Ansys\Digital Twin\Simulation\Beam_files\dp0\SYS\MECH\file.aapresults""",
       <storage-scheme-id valType="String">version-1-format</storage-scheme-id>
       <deleted-sources valType="String">[]</deleted-sources>
       <last-updated valType="Int64">0</last-updated>
-      <last-modified-by-usage valType="String">{"Extrinsic": 33040, "Input": 1812, "Output": 1812}</last-modified-by-usage>
+      <last-modified-by-usage valType="String">{"Extrinsic": 41099, "Input": 1812, "Output": 1812}</last-modified-by-usage>
       <outputs-generated-by-type valType="String">{}</outputs-generated-by-type>
       <contains-significant-data valType="Boolean">false</contains-significant-data>
     </Container>

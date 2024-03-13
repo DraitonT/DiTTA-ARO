@@ -22,7 +22,7 @@ output_directory = "data\convergenceStudy"
 
 start = 0   # Start of the interval
 end = 20    # End of the interval
-step = 0.1    # Step size
+step = 0.2    # Step size
 
 ############################## EDITABLE #############################
 

@@ -1,4 +1,4 @@
-clc, clear, close all
+clc, clear %close all
 addpath(genpath(append(pwd,'\..\..\lib'))) % Adds TwinAnalyticsToolKit.m library to the working path
 tic
 
@@ -18,7 +18,7 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Filepath inputs
-cutLocation = '000';
+cutLocation = '1800';
 folderOfInterest = append('\..\..\data\convergenceStudy\',cutLocation); 
 folderPath = append(pwd, folderOfInterest);
 contour = false;
@@ -42,9 +42,11 @@ combinedCSVFilePath = append(pwd,'\..\..\data\convergenceStudy\combinedData.csv'
 dataTable = readtable(append(pwd,'\..\..\data\convergenceStudy\',cutLocation, '\combinedData.csv'),'VariableNamingRule','preserve');
 
 % Plots for the convergence study 
-TwinAnalyticsToolKit.plotDeformationVsElementSize(dataTable);
+% TwinAnalyticsToolKit.plotDeformationVsElementSize(dataTable);
 TwinAnalyticsToolKit.plotDeformationVsNodes(dataTable);
-TwinAnalyticsToolKit.plotDeformationVsNodesFilter(dataTable);
+hold on
+legend({'Damageless', '2 inches', '8 inches'},'location','southeast')
+% TwinAnalyticsToolKit.plotDeformationVsNodesFilter(dataTable);
 
 % Condition to check if 3D contour plot is wanted
 if contour

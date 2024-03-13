@@ -75,7 +75,7 @@ classdef TwinAnalyticsToolKit
             end
 
             % Write the results to an Excel file
-            outputFileName = 'InterpolatedResults.xlsx';  % Define the output file name
+            outputFileName = append(folderOfInterest, 'InterpolatedResults.xlsx');  % Define the output file name
             writetable(all_interpolated_data, outputFileName);  % Write the table to an Excel file
 
             disp(['All interpolated values have been written to ', outputFileName]);
@@ -178,7 +178,7 @@ classdef TwinAnalyticsToolKit
             all_interpolated_data_table = array2table(all_interpolated_data, 'VariableNames', [strainHeaders, {'CutLocation'}]);
 
             % Write the interpolated data results to an Excel file
-            outputFileName = 'InterpolatedResults.xlsx';
+            outputFileName = append(pwd, folderOfInterest, 'InterpolatedResults.xlsx');
             writetable(all_interpolated_data_table, outputFileName);
 
             % Convert the details array to a table and write to a new CSV
@@ -505,7 +505,7 @@ classdef TwinAnalyticsToolKit
             sortedDataByNodes = sortrows(rightEdgeData, 'Node Numbers');
 
             % Plotting
-            figure;
+            % figure;
             plot(sortedDataByNodes.('Node Numbers'), sortedDataByNodes.('Total Deformation (in)'), 'o-');
             title('Deformation vs Number of Nodes at Right-Most Edge', 'Interpreter', 'latex');
             xlabel('Node Number', 'Interpreter', 'latex');

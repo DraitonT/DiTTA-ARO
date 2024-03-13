@@ -10,8 +10,8 @@ tic
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 %% 0.0 Location of Cut and folder of interest
-    locationOfCut = '510';
-    folderOfInterest = '\..\..\data\runs\'; 
+    locationOfCut = '0790';
+    folderOfInterest = '\..\..\data\runsMarch\'; 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 

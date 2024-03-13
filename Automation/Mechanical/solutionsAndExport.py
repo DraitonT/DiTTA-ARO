@@ -13,10 +13,10 @@ import time
 
 ## 0.0 Select the folder you want to save the files [folder_directory] and the name of the run [output_directory]
 
-locationOfCut = "tmp"
-folder_directory = r"M:\dev\Ansys\Digital Twin"
-output_directory = "data"
-
+locationOfCut = "0800"
+folder_directory = r"M:\dev\Ansys\Digital Twin\data"
+output_directory = "runsMarch"
+size = 0.185
 ############################## EDITABLE #############################
 
 ############################ NON-EDITABLE ###########################
@@ -63,6 +63,13 @@ except OSError:
     delete_directory(full_path)
     pass
 
+# Access the mesh component
+meshComponent = DataModel.Project.Model.Mesh
+meshComponent.ElementSize = Quantity(str(size) + ' [in]')
+
+# Generate the mesh with the new element size
+meshComponent.GenerateMesh()
+    
 # Dictionary to map analysis names to result objects
 analysis_results = {
     "Total Deformation": totalDeformation,

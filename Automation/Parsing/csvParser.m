@@ -13,16 +13,16 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Location of all data files
-folderOfInterest = '\..\..\data\runs\'; 
+folderOfInterest = '\..\..\data\runsMarch\'; 
 num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
-csvName = 'InterpolatedResults.xlsx';
+csvName = '\..\..\data\runsMarch\InterpolatedResults.xlsx';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 
 TwinAnalyticsToolKit.groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
-TwinAnalyticsToolKit.elasticStrainPlotter(csvName)
+TwinAnalyticsToolKit.elasticStrainPlotter(append(pwd,csvName))
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 toc

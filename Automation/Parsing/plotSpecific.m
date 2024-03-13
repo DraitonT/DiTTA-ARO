@@ -17,7 +17,7 @@ tic
 % fileName = '200compiled.csv'; % Update the filename if necessary
 cutLocation = '200'
 fileName = '200compiled.csv'; % Update the filename if necessary
-filePath = append(pwd,'\..\..\data\', cutLocation, '\', fileName);
+filePath = append(pwd,'\..\..\data\runs\', cutLocation, '\', fileName);
 data = readtable(filePath, VariableNamingRule="preserve");
 
 % Extract the necessary columns

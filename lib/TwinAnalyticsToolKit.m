@@ -178,7 +178,7 @@ classdef TwinAnalyticsToolKit
             all_interpolated_data_table = array2table(all_interpolated_data, 'VariableNames', [strainHeaders, {'CutLocation'}]);
 
             % Write the interpolated data results to an Excel file
-            outputFileName = append(pwd, folderOfInterest, 'InterpolatedResults.xlsx');
+            outputFileName = append(pwd, folderOfInterest, 'InterpolatedResults.csv');
             writetable(all_interpolated_data_table, outputFileName);
 
             % Convert the details array to a table and write to a new CSV

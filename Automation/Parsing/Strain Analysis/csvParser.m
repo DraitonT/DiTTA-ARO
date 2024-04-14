@@ -1,5 +1,5 @@
 clc, clear, close all
-addpath(genpath(append(pwd,'\..\..\lib'))) %Adds TwinAnalyticsToolKit.m library to the working path
+addpath(genpath(append(pwd,'\..\..\..\lib'))) %Adds TwinAnalyticsToolKit.m library to the working path
 tic
 % -------------MATLAB Script Information-------------
 % Author Names: Michael Quach
@@ -13,9 +13,9 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Location of all data files
-folderOfInterest = '\..\..\data\runsMarch\'; 
+folderOfInterest = '\..\..\..\data\runsMarch\'; 
 num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
-csvName = '\..\..\data\runsMarch\InterpolatedResults.xlsx';
+csvName = '\..\..\..\data\runsMarch\InterpolatedResults.csv';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 

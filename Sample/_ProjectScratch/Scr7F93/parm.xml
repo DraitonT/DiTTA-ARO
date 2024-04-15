@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--  ************************************************************ -->
+<!--  ************************************************************ -->
+<!--  File Name: parm.xml -->
+<!--  ************************************************************ -->
+<!--  ************************************************************ -->
+<ANSYSDOC xmlns="http://www.ansys.com/caedoc_ns">
+<HEADER>
+   <NAME>ANSYS</NAME>
+   <VERSION>23.2</VERSION>
+   <OS>WINDOWS x64</OS>
+   <DESCRIPTION>Beam--Static Structural (A5)</DESCRIPTION>
+</HEADER>
+<PARM ID="ANSINTER_">0</PARM>
+<PARM ID="_ASMDIAG">24.738835866</PARM>
+<PARM ID="_DS_PROGRESS">999</PARM>
+<PARM ID="_MAXELEMNUM">718</PARM>
+<PARM ID="_MAXELEMTYPE">2</PARM>
+<PARM ID="_MAXNODENUM">1668</PARM>
+<PARM ID="_MAXREALCONST">0</PARM>
+<PARM ID="_NSOLPROCESSES">4</PARM>
+<PARM ID="_NSOLTHREADS">1</PARM>
+<PARM ID="_NUMELEM">216</PARM>
+<PARM ID="_NUMNODE">1668</PARM>
+<PARM ID="_RETURN">0</PARM>
+<PARM ID="_STATUS">0</PARM>
+<PARM ID="_THICKRATIO">0</PARM>
+<PARM ID="_WALLASOL">18.791388889</PARM>
+<PARM ID="_WALLBSOL">18.791388889</PARM>
+<PARM ID="_WALLSTRT">18.791388889</PARM>
+<PARM ID="_WB_PROJECTSCRATCH_DIR" STRING="248 1 1">
+ M:\dev\Ansys\Digital Twin\Simulation\_ProjectScratch\Scr7F93\                                                                                                                                                                                           
+</PARM>
+<PARM ID="_WB_SOLVERFILES_DIR" STRING="248 1 1">
+ M:\dev\Ansys\Digital Twin\Simulation\Beam_files\dp0\SYS\MECH\                                                                                                                                                                                           
+</PARM>
+<PARM ID="_WB_USERFILES_DIR" STRING="248 1 1">
+ M:\dev\Ansys\Digital Twin\Simulation\Beam_files\user_files\                                                                                                                                                                                             
+</PARM>
+<PARM ID="_XMAX">24</PARM>
+<PARM ID="_XMIN">0</PARM>
+<PARM ID="_YMAX">6</PARM>
+<PARM ID="_YMIN">0</PARM>
+<PARM ID="_ZMAX">.1</PARM>
+<PARM ID="_ZMIN">0</PARM>
+<FEAMODEL>
+<TABLES>
+</TABLES>
+<LOADCASE ID="1">
+   <LOADSTEP  STEP="1" SUB="1" TIME="1">
+      <BOUNDARY_CONDITIONS>
+      </BOUNDARY_CONDITIONS>
+   </LOADSTEP>
+</LOADCASE>
+</FEAMODEL>
+</ANSYSDOC>

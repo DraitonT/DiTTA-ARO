@@ -13,16 +13,25 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Location of all data files
+interestedData = [{'Equivalent Elastic Strains (in/in)'}, {'Total Deformation (in)'}];
+csvInfo.name = [{'Strain'}, {'Deformation'}];
+csvInfo.unit = [{' (in/in)'}, {' (in)'}];
+
 folderOfInterest = '\..\..\..\data\runsMarch\'; 
 num_nearest_nodes = 4; % Set the number of nearest nodes to use for interpolation
-csvName = '\..\..\..\data\runsMarch\InterpolatedResults.csv';
+csvName = '\..\..\..\data\runsMarch\InterpolationResults_Strain.csv';
+csvName = '\..\..\..\data\runsMarch\InterpolationResults_Deformation .csv';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% EDITABLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 
-TwinAnalyticsToolKit.groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
-TwinAnalyticsToolKit.elasticStrainPlotter(append(pwd,csvName))
+for i = 1:length(interestedData)
+    TwinAnalyticsToolKit.groupPerCutAllValue(folderOfInterest, num_nearest_nodes, interestedData{1,i}, csvInfo, i)
+end
+
+% TwinAnalyticsToolKit.groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
+% TwinAnalyticsToolKit.elasticStrainPlotter(append(pwd,csvName))
 
 %%%%%%%%%%%%%%%%%%%%%%% NON-EDITABLE %%%%%%%%%%%%%%%%%%%%%%%
 toc

@@ -81,7 +81,7 @@ classdef TwinAnalyticsToolKit
             disp(['All interpolated values have been written to ', outputFileName]);
         end
         %% 1.2 Parser for all strain gage locations (Equivalent Elastic Strain only) using IDW Interpolation
-        function groupPerCutAllEquElasticStrain(folderOfInterest, num_nearest_nodes)
+        function groupPerCutAllValue(folderOfInterest, num_nearest_nodes, interestedData, csvInfo, index)
             % Initialize an empty array to store all interpolated values
             all_interpolated_data = [];
             % Initialize an empty array to store interpolation details
@@ -108,83 +108,89 @@ classdef TwinAnalyticsToolKit
                 cutLocation = str2double(folderName) / 100; % Assuming the folderName is something like '502'
 
                 csvFileOfInterest = append(filePath, folderName, '\', folderName, 'compiled.csv');
-                data = readtable(csvFileOfInterest, 'VariableNamingRule','preserve');
+                if exist(csvFileOfInterest, 'file')
+                    data = readtable(csvFileOfInterest, 'VariableNamingRule','preserve');
 
-                % Remove 'Node Numbers' column if it exists
-                if any(strcmp('Node Numbers', data.Properties.VariableNames))
-                    data.('Node Numbers') = [];
-                end
 
-                % Initialize a temporary storage for the current cut's data
-                cut_data = zeros(1, 8); % 7 coordinates + 1 cut location
-                % New temporary storage for interpolation details
-                temp_interpolation_details = zeros(num_nearest_nodes*size(user_coordinates, 1), 7); % Node index, X, Y, Z, Weight, Strain Value, Cut Location
-
-                % Loop through each set of user input coordinates
-                for coord_idx = 1:size(user_coordinates, 1)
-                    user_x = user_coordinates(coord_idx, 1);
-                    user_y = user_coordinates(coord_idx, 2);
-                    user_z = user_coordinates(coord_idx, 3);
-
-                    % Calculate the Euclidean distance from each node to the user specified point
-                    distances = sqrt((data.('X Locations (inches)') - user_x).^2 + ...
-                        (data.('Y Locations (inches)') - user_y).^2 + ...
-                        (data.('Z Locations (inches)') - user_z).^2);
-
-                    % Find the indices of the nearest nodes
-                    [sortedDistances, sortedIndices] = sort(distances);
-                    nearestIndices = sortedIndices(1:num_nearest_nodes);
-                    nearestDistances = sortedDistances(1:num_nearest_nodes);
-
-                    % Modified IDW interpolation for 'Equivalent Elastic Strains (in/in)'
-                    if any(nearestDistances == 0)
-                        % Assign high weight to zero distances and zero to others
-                        weights = nearestDistances == 0;
-                        weights = weights; % Adjust this high value as needed
-                        normalized_weights = weights;
-                    else
-                        % Original weighting calculation if no distances are zero
-                        weights = 1 ./ nearestDistances;
-                        normalized_weights = weights / sum(weights);
+                    % Remove 'Node Numbers' column if it exists
+                    if any(strcmp('Node Numbers', data.Properties.VariableNames))
+                        data.('Node Numbers') = [];
                     end
 
-                    % Interpolate 'Equivalent Elastic Strains (in/in)'
-                    equivalentElasticStrain = sum(normalized_weights .* data.('Equivalent Elastic Strains (in/in)')(nearestIndices));
+                    % Initialize a temporary storage for the current cut's data
+                    cut_data = zeros(1, 8); % 7 coordinates + 1 cut location
+                    % New temporary storage for interpolation details
+                    temp_interpolation_details = zeros(num_nearest_nodes*size(user_coordinates, 1), 8); % Including Total Weight
 
-                    % Store the interpolated value in the temporary storage
-                    cut_data(coord_idx) = equivalentElasticStrain;
+                    % Loop through each set of user input coordinates
+                    for coord_idx = 1:size(user_coordinates, 1)
+                        user_x = user_coordinates(coord_idx, 1);
+                        user_y = user_coordinates(coord_idx, 2);
+                        user_z = user_coordinates(coord_idx, 3);
 
-                    % Store interpolation details including strain values
-                    for i = 1:num_nearest_nodes
-                        nodeIndex = nearestIndices(i);
-                        detail_idx = (coord_idx - 1) * num_nearest_nodes + i;
-                        temp_interpolation_details(detail_idx, :) = [nodeIndex, data.('X Locations (inches)')(nodeIndex), ...
-                            data.('Y Locations (inches)')(nodeIndex), ...
-                            data.('Z Locations (inches)')(nodeIndex), normalized_weights(i), ...
-                            data.('Equivalent Elastic Strains (in/in)')(nodeIndex), cutLocation];
+                        % Calculate the Euclidean distance from each node to the user specified point
+                        distances = sqrt((data.('X Locations (inches)') - user_x).^2 + ...
+                            (data.('Y Locations (inches)') - user_y).^2 + ...
+                            (data.('Z Locations (inches)') - user_z).^2);
+
+                        % Find the indices of the nearest nodes
+                        [sortedDistances, sortedIndices] = sort(distances);
+                        nearestIndices = sortedIndices(1:num_nearest_nodes);
+                        nearestDistances = sortedDistances(1:num_nearest_nodes);
+
+                        % Modified IDW interpolation for interestedData
+                        if any(nearestDistances == 0)
+                            % Assign high weight to zero distances and zero to others
+                            weights = nearestDistances == 0;
+                            weights = double(weights); % Ensure logical to double conversion
+                            normalized_weights = weights / sum(weights); % Normalize even if all weights are the same
+                        else
+                            % Original weighting calculation if no distances are zero
+                            weights = 1 ./ nearestDistances;
+                            normalized_weights = weights / sum(weights);
+                        end
+
+                        % Interpolate interestedData
+                        equivalentElasticStrain = sum(normalized_weights .* data.(interestedData)(nearestIndices));
+
+                        % Store the interpolated value in the temporary storage
+                        cut_data(coord_idx) = equivalentElasticStrain;
+
+                        % Store interpolation details including strain values
+                        total_weight = sum(normalized_weights); % Total of normalized weights (should be 1)
+                        for i = 1:num_nearest_nodes
+                            nodeIndex = nearestIndices(i);
+                            detail_idx = (coord_idx - 1) * num_nearest_nodes + i;
+                            temp_interpolation_details(detail_idx, :) = [nodeIndex, data.('X Locations (inches)')(nodeIndex), ...
+                                data.('Y Locations (inches)')(nodeIndex), ...
+                                data.('Z Locations (inches)')(nodeIndex), normalized_weights(i), ...
+                                data.(interestedData)(nodeIndex), cutLocation, total_weight];
+                        end
                     end
+
+                    % Store the cut location in the temporary storage
+                    cut_data(8) = cutLocation;
+
+                    % Append the cut data and details to their respective matrices
+                    all_interpolated_data = [all_interpolated_data; cut_data];
+                    all_interpolation_details = [all_interpolation_details; temp_interpolation_details];
+                else
+                    fprintf('This file (%s) does not exist, skipping\n', csvFileOfInterest)
                 end
-
-                % Store the cut location in the temporary storage
-                cut_data(8) = cutLocation;
-
-                % Append the cut data and details to their respective matrices
-                all_interpolated_data = [all_interpolated_data; cut_data];
-                all_interpolation_details = [all_interpolation_details; temp_interpolation_details];
             end
 
             % Convert the array to a table with appropriate headings for interpolated data
-            strainHeaders = arrayfun(@(n) ['Strain ' num2str(n) ' (in/in)'], 1:7, 'UniformOutput', false);
+            strainHeaders = arrayfun(@(n) [csvInfo.name{1,index} num2str(n) csvInfo.unit{1,index}], 1:7, 'UniformOutput', false);
             all_interpolated_data_table = array2table(all_interpolated_data, 'VariableNames', [strainHeaders, {'CutLocation'}]);
 
             % Write the interpolated data results to an Excel file
-            outputFileName = append(pwd, folderOfInterest, 'InterpolatedResults.csv');
+            outputFileName = append(pwd, folderOfInterest, 'InterpolationResults', '_', csvInfo.name{1,index}, '.csv');
             writetable(all_interpolated_data_table, outputFileName);
 
             % Convert the details array to a table and write to a new CSV
-            detailHeaders = {'NodeIndex', 'X', 'Y', 'Z', 'Weight', 'StrainValue', 'CutLocation'};
+            detailHeaders = {'NodeIndex', 'X', 'Y', 'Z', 'Weight', csvInfo.name{1,index}, 'CutLocation', 'TotalWeight'};
             interpolation_details_table = array2table(all_interpolation_details, 'VariableNames', detailHeaders);
-            detailOutputFileName = 'InterpolationDetails.csv';
+            detailOutputFileName = append('InterpolationDetails', '_', csvInfo.name{1,index}, '.csv');
             writetable(interpolation_details_table, detailOutputFileName);
 
             disp(['All interpolation details have been written to ', detailOutputFileName]);

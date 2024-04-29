@@ -214,13 +214,13 @@ classdef TwinAnalyticsToolKit
 
             figure;
             hold on;
-            plot(CutLocation, Strain1, 'b', 'DisplayName', 'Strain 1');
-            plot(CutLocation, Strain2, 'g', 'DisplayName', 'Strain 2');
-            plot(CutLocation, Strain3, 'r', 'DisplayName', 'Strain 3');
-            plot(CutLocation, Strain4, 'c', 'DisplayName', 'Strain 4');
-            plot(CutLocation, Strain5, 'm', 'DisplayName', 'Strain 5');
-            plot(CutLocation, Strain6, 'y', 'DisplayName', 'Strain 6');
-            plot(CutLocation, Strain7, 'k', 'DisplayName', 'Strain 7');
+            plot(CutLocation, Strain1, 'b', 'DisplayName', 'Sensor 1');
+            plot(CutLocation, Strain2, 'g', 'DisplayName', 'Sensor 2');
+            plot(CutLocation, Strain3, 'r', 'DisplayName', 'Sensor 3');
+            plot(CutLocation, Strain4, 'c', 'DisplayName', 'Sensor 4');
+            plot(CutLocation, Strain5, 'm', 'DisplayName', 'Sensor 5');
+            plot(CutLocation, Strain6, 'y', 'DisplayName', 'Sensor 6');
+            plot(CutLocation, Strain7, 'k', 'DisplayName', 'Sensor 7');
 
             xlabel('Cut Location (inches)', 'Interpreter', 'latex');
             ylabel(sprintf('%s %s', dataName, unit), 'Interpreter', 'latex');

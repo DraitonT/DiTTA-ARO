@@ -81,7 +81,7 @@ classdef TwinAnalyticsToolKit
             disp(['All interpolated values have been written to ', outputFileName]);
         end
         %% 1.2 Parser for all strain gage locations (Equivalent Elastic Strain only) using IDW Interpolation
-        function groupPerCutAllValue(folderOfInterest, num_nearest_nodes, interestedData, csvInfo, index)
+        function outputFileName = groupPerCutAllValue(folderOfInterest, num_nearest_nodes, interestedData, csvInfo, index)
             % Initialize an empty array to store all interpolated values
             all_interpolated_data = [];
             % Initialize an empty array to store interpolation details
@@ -197,7 +197,7 @@ classdef TwinAnalyticsToolKit
         end
 
         %% 1.2.1 Plotter
-        function elasticStrainPlotter(csvName)
+        function dataStrainPlotter(csvName, dataName, unit, index)
             data = readmatrix(csvName); % Read the CSV file into a matrix (assuming it has a header row).
 
             % Extract the columns you need from the data matrix
@@ -223,8 +223,8 @@ classdef TwinAnalyticsToolKit
             plot(CutLocation, Strain7, 'k', 'DisplayName', 'Strain 7');
 
             xlabel('Cut Location (inches)', 'Interpreter', 'latex');
-            ylabel('Strain (in/in)', 'Interpreter', 'latex');
-            title('Strain vs. Cut Location', 'Interpreter', 'latex');
+            ylabel(sprintf('%s %s', dataName, unit), 'Interpreter', 'latex');
+            title(append(dataName,' vs. Cut Location'), 'Interpreter', 'latex');
             legend('Location', 'Best', 'Interpreter', 'latex');
 
             grid on;
